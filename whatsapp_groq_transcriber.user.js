@@ -188,6 +188,17 @@
             .message-out .btn-groq {
                 margin-left: auto;
             }
+            /* Alinear el botón y la tarjeta de transcripción como hermanos del mensaje */
+            .message-out ~ .btn-groq,
+            .message-out ~ .groq-result-card {
+                margin-left: auto;
+                align-self: flex-end !important;
+            }
+            .message-in ~ .btn-groq,
+            .message-in ~ .groq-result-card {
+                margin-left: 0;
+                align-self: flex-start !important;
+            }
             .groq-modal-backdrop {
                 position: fixed;
                 top: 0;
@@ -1148,7 +1159,7 @@
     }
 
     function showResult(bubble, text) {
-        var existing = bubble.querySelector('.groq-result-card');
+        var existing = bubble.parentNode ? bubble.parentNode.querySelector('.groq-result-card') : bubble.querySelector('.groq-result-card');
         if (existing) existing.remove();
 
         var card = document.createElement('div');
@@ -1166,8 +1177,16 @@
             }).catch(function () { /* fallback */ });
         });
 
-        var cardTarget = bubble;
-        cardTarget.appendChild(card);
+        if (bubble.parentNode) {
+            var btn = bubble.parentNode.querySelector('.btn-groq');
+            if (btn) {
+                bubble.parentNode.insertBefore(card, btn.nextSibling);
+            } else {
+                bubble.parentNode.appendChild(card);
+            }
+        } else {
+            bubble.appendChild(card);
+        }
         card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
@@ -1370,8 +1389,29 @@
             }
         }
 
-        containers.forEach(function (bubble) {
-            if (!bubble || bubble.querySelector('.btn-groq')) return;
+        // Deduplicar contenedores aninados (quedarse solo con el mas especifico)
+        var containerList = Array.from(containers);
+        var filteredContainers = containerList.filter(function (c1) {
+            return !containerList.some(function (c2) {
+                return c1 !== c2 && c1.contains(c2);
+            });
+        });
+
+        filteredContainers.forEach(function (bubble) {
+            if (!bubble) return;
+            var sibling = bubble.nextSibling;
+            var hasBtn = false;
+            while (sibling) {
+                if (sibling.classList && sibling.classList.contains('btn-groq')) {
+                    hasBtn = true;
+                    break;
+                }
+                if (sibling.classList && (sibling.classList.contains('message-in') || sibling.classList.contains('message-out') || sibling.getAttribute?.('data-testid') === 'msg-container')) {
+                    break;
+                }
+                sibling = sibling.nextSibling;
+            }
+            if (hasBtn) return;
 
             var playBtn = bubble.querySelector(sel) || bubble.querySelector('audio') || bubble;
 
@@ -1456,7 +1496,11 @@
             };
 
             // Insert button below audio bubble, outside the visual bubble container
-            bubble.appendChild(btn);
+            if (bubble.parentNode) {
+                bubble.parentNode.insertBefore(btn, bubble.nextSibling);
+            } else {
+                bubble.appendChild(btn);
+            }
         });
     }
 

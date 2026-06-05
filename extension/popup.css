@@ -358,3 +358,87 @@ input:checked + .slider:before {
   0%, 100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.05); opacity: 0.85; }
 }
+
+/* ─── Compliance: data-notice bajo el campo de API Key ─── */
+.data-notice {
+  margin: 4px 0 0 0;
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  padding: 6px 8px;
+  background: rgba(0, 168, 132, 0.07);
+  border-radius: 6px;
+  border-left: 2px solid rgba(0, 168, 132, 0.4);
+}
+.data-notice strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* ─── Compliance: panel de privacidad ─── */
+.privacy-panel {
+  background: linear-gradient(145deg, rgba(0, 168, 132, 0.05), rgba(32, 44, 51, 0.4));
+  border: 1px solid rgba(0, 168, 132, 0.18);
+  border-radius: 10px;
+  padding: 10px 12px;
+  gap: 8px !important;
+}
+.privacy-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.privacy-icon {
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+.privacy-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.privacy-list {
+  margin: 4px 0 6px 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.privacy-list li {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.privacy-list code {
+  font-family: 'Courier New', monospace;
+  background: rgba(255,255,255,0.07);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 10px;
+  color: var(--primary-color);
+}
+.privacy-policy-link {
+  font-size: 11px;
+  color: var(--primary-color);
+  text-decoration: none;
+  display: inline-block;
+  padding: 2px 0;
+  border-bottom: 1px dashed rgba(0, 168, 132, 0.4);
+  transition: opacity 0.15s ease;
+}
+.privacy-policy-link:hover {
+  opacity: 0.75;
+}
+
+/* ─── Compliance: barra de disclaimer en el footer ─── */
+.disclaimer-bar {
+  padding: 8px 16px;
+  font-size: 10px;
+  color: rgba(134, 150, 160, 0.7);
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+  line-height: 1.4;
+}

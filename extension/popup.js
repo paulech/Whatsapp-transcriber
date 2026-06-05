@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const clearBtn = document.getElementById('clearBtn');
   const saveBtn = document.getElementById('saveBtn');
+  const privacyPolicyLink = document.getElementById('privacyPolicyLink');
+
+  // URL pública de la Política de Privacidad (actualizar con la URL real de GitHub Pages/Gist)
+  const PRIVACY_POLICY_URL = 'https://github.com/tu-usuario/whatsapp-groq-transcriber/blob/main/PRIVACY_POLICY.md';
 
   let cachedSettings = null;
   let isPasswordVisible = false;
@@ -153,4 +157,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // ─── Enlace Política de Privacidad ────────────────────
+  if (privacyPolicyLink) {
+    privacyPolicyLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      chrome.tabs.create({ url: PRIVACY_POLICY_URL });
+    });
+  }
 });

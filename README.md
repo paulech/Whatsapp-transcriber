@@ -1,4 +1,4 @@
-# WhatsApp Web Groq Transcriber (v4.1.0 - Edición Optimizada) 🎙️🚀
+# Groq Transcriber for WhatsApp Web (v4.1.0) 🎤🚀🎙️🚀
 
 Esta herramienta te permite transcribir notas de voz directamente en **WhatsApp Web** de forma casi instantánea, utilizando los modelos avanzados de **Whisper** (como `whisper-large-v3-turbo` y `whisper-large-v3`) alojados en la API de **Groq**. 
 
@@ -46,9 +46,22 @@ Esta herramienta te permite transcribir notas de voz directamente en **WhatsApp 
 
 ## 🔒 Privacidad y Seguridad
 
-* **Sin intermediarios**: Tus mensajes de voz se procesan a nivel local y viajan encriptados por HTTPS directamente a la API oficial de Groq. Nadie más que tú tiene acceso a las conversaciones.
-* **Caché en memoria**: Las transcripciones se almacenan en una caché local temporal y se limpian de manera automática pasadas las 8 horas o cuando cierres la pestaña de WhatsApp Web.
-* **API Key segura**: Tu clave de acceso a Groq se almacena localmente de forma cifrada/ofuscada en tu navegador (`chrome.storage.local`) y nunca es transmitida a terceros.
+* **Sin intermediarios del desarrollador**: Los mensajes de voz se procesan localmente y viajan encriptados por HTTPS directamente a la API oficial de Groq (`https://api.groq.com`). El desarrollador **nunca recibe tus audios ni tus datos**.
+* **Caché en memoria**: Las transcripciones se almacenan en caché local temporal y se eliminan automáticamente pasadas las 8 horas o al cerrar la pestaña.
+* **API Key segura**: Tu clave de acceso a Groq se almacena localmente en tu navegador (`chrome.storage.local`) de forma ofuscada. Nunca se transmite al desarrollador.
+* **Sin telemetría**: No se recopilan datos de navegación, historial, metadatos ni información de contactos. No se usan analytics de ningún tipo.
+
+---
+
+## ⚖️ Aviso Legal / Disclaimer
+
+> **Proyecto independiente de código abierto.**
+>
+> Esta extensión **no está afiliada, asociada, autorizada, patrocinada ni respaldada** por WhatsApp Inc., Meta Platforms Inc. ni ninguna de sus subsidiarias o filiales.
+>
+> Los nombres "WhatsApp" y "Meta" son marcas registradas de sus respectivos propietarios. El uso de esta extensión se realiza bajo la exclusiva responsabilidad del usuario y puede estar sujeto a los Términos de Servicio de WhatsApp.
+>
+> Ver [Política de Privacidad completa](./PRIVACY_POLICY.md).
 
 ---
 

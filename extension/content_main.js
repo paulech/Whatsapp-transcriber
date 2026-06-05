@@ -584,7 +584,7 @@
     }
 
     function showResult(bubble, text) {
-        var existing = bubble.querySelector('.groq-result-card');
+        var existing = bubble.parentNode ? bubble.parentNode.querySelector('.groq-result-card') : bubble.querySelector('.groq-result-card');
         if (existing) existing.remove();
 
         var card = document.createElement('div');
@@ -602,8 +602,16 @@
             }).catch(function () { /* fallback */ });
         });
 
-        var cardTarget = bubble;
-        cardTarget.appendChild(card);
+        if (bubble.parentNode) {
+            var btn = bubble.parentNode.querySelector('.btn-groq');
+            if (btn) {
+                bubble.parentNode.insertBefore(card, btn.nextSibling);
+            } else {
+                bubble.parentNode.appendChild(card);
+            }
+        } else {
+            bubble.appendChild(card);
+        }
         card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
@@ -622,49 +630,8 @@
 
     // ─── Modal de Configuración In-App ──────────────────
 
-    async function openConfigModal() {
-        var existing = document.querySelector('.groq-modal-backdrop');
-        if (existing) existing.remove();
-
-        await loadSettings();
-        
-        // Cargar estado de cuotas desde el Background Service Worker
-        const quota = await sendToExtension('get_settings'); // Reutilizamos settings pero también podemos pedir cuota
-        const responseQuota = await sendToExtension('transcribe', { action: 'getQuotaStatus' }); // dummy request, but wait:
-        
-        // Mejor obtener cuotas directamente del background:
-        const quotaStatus = await new Promise((resolve) => {
-            const requestId = Math.random().toString(36).substring(2, 15);
-            pendingRequests.set(requestId, { resolve });
-            window.postMessage({
-                source: 'groq-transcriber-main',
-                action: 'transcribe',
-                requestId,
-                audioData: null,
-                duration: 0,
-                model: 'quota_query_only'
-            }, '*');
-        });
-        
-        // Espera, para evitar hacks, solicitamos quotaStatus enviando un mensaje directo al puente.
-        // Pero en content_isolated.js ya tenemos la acción 'getQuotaStatus' mapeada a nivel de extensión.
-        // Vamos a cambiar content_isolated.js para mapear get_quota si es necesario, o lo consultamos
-        // de forma indirecta. Hagámoslo fácil: content_isolated.js responderá a 'get_quota'.
-        // Añadiremos soporte para get_quota en content_isolated.js si hace falta, o estimamos el consumo desde los settings.
-        // En realidad, para no complicar el puente, podemos pedir las configuraciones completas y las cuotas de forma conjunta.
-        // Vamos a definir la solicitud de cuotas como una acción en content_isolated.js.
-        // Espera! Ya tenemos implementado en background.js el listener para 'getQuotaStatus'.
-        // Solo necesitamos que content_isolated.js escuche 'get_quota' y lo mande al background.
-        // Modifiquemos content_isolated.js más tarde si es necesario, o lo gestionamos a través del popup.
-        // Dado que el modal de WhatsApp web también muestra cuotas, hagamos que content_isolated.js
-        // de soporte a 'get_quota'.
-        // Pero antes, para no romper el flujo actual, podemos simularlo o simplemente modificar content_isolated.js.
-        // Vamos a modificar content_isolated.js para añadir 'get_quota' de forma rápida.
-        // ¡Perfecto! Para no complicar, sigamos y después afinamos.
-    }
-
     // Adaptamos el modal in-app para que use sendToExtension en lugar de llamadas locales a localStorage de la página:
-    async function openConfigModalImpl() {
+    async function openConfigModal() {
         var existing = document.querySelector('.groq-modal-backdrop');
         if (existing) existing.remove();
 
@@ -830,8 +797,29 @@
             }
         }
 
-        containers.forEach(function (bubble) {
-            if (!bubble || bubble.querySelector('.btn-groq')) return;
+        // Deduplicar contenedores aninados (quedarse solo con el mas especifico)
+        var containerList = Array.from(containers);
+        var filteredContainers = containerList.filter(function (c1) {
+            return !containerList.some(function (c2) {
+                return c1 !== c2 && c1.contains(c2);
+            });
+        });
+
+        filteredContainers.forEach(function (bubble) {
+            if (!bubble) return;
+            var sibling = bubble.nextSibling;
+            var hasBtn = false;
+            while (sibling) {
+                if (sibling.classList && sibling.classList.contains('btn-groq')) {
+                    hasBtn = true;
+                    break;
+                }
+                if (sibling.classList && (sibling.classList.contains('message-in') || sibling.classList.contains('message-out') || sibling.getAttribute?.('data-testid') === 'msg-container')) {
+                    break;
+                }
+                sibling = sibling.nextSibling;
+            }
+            if (hasBtn) return;
 
             var playBtn = bubble.querySelector(sel) || bubble.querySelector('audio') || bubble;
 
@@ -844,7 +832,7 @@
                     // UX: Si no tiene configurada la API Key, abrir el modal interactivo in-app automáticamente
                     if (!cachedSettings.hasKey) {
                         alert('Debes configurar tu API Key de Groq primero. Se abrirá la configuración.');
-                        openConfigModalImpl();
+                        openConfigModal();
                         return;
                     }
 
@@ -947,7 +935,11 @@
                 }
             };
 
-            bubble.appendChild(btn);
+            if (bubble.parentNode) {
+                bubble.parentNode.insertBefore(btn, bubble.nextSibling);
+            } else {
+                bubble.appendChild(btn);
+            }
         });
     }
 
@@ -1055,7 +1047,7 @@
     window.addEventListener('message', (event) => {
         if (event.source !== window) return;
         if (event.data && event.data.source === 'groq-transcriber-isolated' && event.data.action === 'open_config_modal') {
-            openConfigModalImpl();
+            openConfigModal();
         }
     });
 

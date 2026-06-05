@@ -139,6 +139,17 @@
 .message-out .btn-groq {
     margin-left: auto;
 }
+/* Alinear el botón y la tarjeta de transcripción como hermanos del mensaje */
+.message-out ~ .btn-groq,
+.message-out ~ .groq-result-card {
+    margin-left: auto;
+    align-self: flex-end !important;
+}
+.message-in ~ .btn-groq,
+.message-in ~ .groq-result-card {
+    margin-left: 0;
+    align-self: flex-start !important;
+}
 .groq-modal-backdrop {
     position: fixed;
     top: 0;

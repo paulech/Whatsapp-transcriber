@@ -34,6 +34,10 @@
             </svg>
           </button>
         </div>
+        <p class="data-notice">
+          🔒 Tu audio va directo a <strong>api.groq.com</strong> vía HTTPS usando tu propia key.
+          El desarrollador nunca recibe tus datos.
+        </p>
       </section>
 
       <!-- Selección de Modelo -->
@@ -105,6 +109,24 @@
           </div>
         </div>
       </section>
+
+      <!-- Sección de Privacidad y Declaración de Datos -->
+      <section class="config-section privacy-panel">
+        <div class="privacy-header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="privacy-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="privacy-title">Privacidad y Datos</span>
+        </div>
+        <ul class="privacy-list">
+          <li>✅ Sin servidores intermediarios del desarrollador</li>
+          <li>✅ Audio enviado solo a <code>api.groq.com</code> (HTTPS)</li>
+          <li>✅ API Key guardada localmente en tu navegador</li>
+          <li>✅ Sin telemetría, sin tracking, sin cookies</li>
+          <li>❌ No afiliado con WhatsApp Inc. ni Meta Platforms</li>
+        </ul>
+        <a id="privacyPolicyLink" href="#" class="privacy-policy-link" title="Ver Política de Privacidad completa">
+          📄 Ver Política de Privacidad completa
+        </a>
+      </section>
     </main>
 
     <footer class="app-footer">
@@ -113,6 +135,9 @@
         <button id="saveBtn" class="btn btn-primary">Guardar Cambios</button>
       </div>
     </footer>
+    <div class="disclaimer-bar">
+      Proyecto independiente. No afiliado, no respaldado ni asociado con WhatsApp Inc. o Meta Platforms, Inc.
+    </div>
   </div>
 
   <script src="popup.js"></script>

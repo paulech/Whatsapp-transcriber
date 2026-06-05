@@ -383,10 +383,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             const rawKey = await apiKeyManager.load();
             const result = await chrome.storage.local.get(['whisper_model', 'groq_ui_compact', 'groq_first_use_ack']);
             const quota = await rateLimiter.getQuotaStatus();
+            
+            // SEGURIDAD: No exponer la clave sin enmascarar a scripts de contenido
+            const isContentScript = sender && sender.tab;
+            
             sendResponse({
                 hasKey: typeof rawKey === 'string' && rawKey.length > 0,
                 maskedKey: rawKey ? apiKeyManager.mask(rawKey) : '',
-                rawKey: rawKey || '', // Solo popup.js o funciones locales autorizadas lo leerán
+                rawKey: isContentScript ? '' : (rawKey || ''), // Solo popup.js lo leerá de forma segura
                 whisperModel: result.whisper_model || DEFAULT_MODEL,
                 groqUiCompact: result.groq_ui_compact !== false,
                 groqFirstUseAck: result.groq_first_use_ack === true,
