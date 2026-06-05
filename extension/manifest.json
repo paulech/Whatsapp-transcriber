@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "WhatsApp Web Groq Transcriber",
+  "version": "4.1.0",
+  "version_name": "4.11",
+  "description": "Transcribe audios de WhatsApp Web con Groq Whisper API. UI premium con cuotas en tiempo real.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://api.groq.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://web.whatsapp.com/*"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "js": [
+        "content_isolated.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://web.whatsapp.com/*"
+      ],
+      "js": [
+        "content_main.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
