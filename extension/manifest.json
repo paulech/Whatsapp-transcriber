@@ -1,12 +1,11 @@
 {
   "manifest_version": 3,
   "name": "Groq Transcriber for WhatsApp Web",
-  "version": "4.1.0",
-  "version_name": "4.11",
-  "description": "Transcribe audios de WhatsApp Web con Groq Whisper AI. Sin servidores propios. Tu voz va directo a Groq. No afiliado con WhatsApp/Meta.",
+  "version": "4.2.0",
+  "version_name": "4.2.0",
+  "description": "Transcribe audios de WhatsApp Web con Groq Whisper. Sin servidores propios. Voz directo a Groq. No afiliado con WhatsApp/Meta.",
   "permissions": [
-    "storage",
-    "tabs"
+    "storage"
   ],
   "host_permissions": [
     "https://api.groq.com/*"

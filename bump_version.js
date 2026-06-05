@@ -87,8 +87,9 @@ try {
     const manifestContent = fs.readFileSync(MANIFEST_PATH, 'utf8');
     const manifest = JSON.parse(manifestContent);
     manifest.version = newVersion;
+    manifest.version_name = newVersion;
     fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2) + '\n', 'utf8');
-    console.log('Actualizado: manifest.json (JSON)');
+    console.log('Actualizado: manifest.json (version + version_name)');
 } catch (error) {
     console.error('Error al escribir manifest.json:', error.message);
     process.exit(1);

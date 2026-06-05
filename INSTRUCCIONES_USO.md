@@ -1,5 +1,5 @@
 # Guía de Instalación y Uso 🎙️🚀
-## WhatsApp Web Groq Transcriber (v4.1.0 - Edición Optimizada)
+## WhatsApp Web Groq Transcriber (v4.2.0 - Edición Optimizada)
 
 Esta guía te guiará paso a paso para instalar, configurar y utilizar la extensión en tu navegador Google Chrome (o cualquier navegador basado en Chromium como Brave, Edge u Opera).
 

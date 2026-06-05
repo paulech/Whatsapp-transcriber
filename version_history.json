@@ -1,5 +1,10 @@
 [
   {
+    "version": "4.2.0",
+    "date": "2026-06-05T19:13:23-03:00",
+    "description": "Compliance Chrome Web Store: privacidad, disclaimer, auto-idioma"
+  },
+  {
     "version": "4.1.0",
     "date": "2026-06-05T17:05:34-03:00",
     "description": "Actualización automática de versión a 4.1.0"

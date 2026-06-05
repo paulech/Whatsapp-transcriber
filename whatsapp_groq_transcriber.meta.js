@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WhatsApp Groq Transcriber v4
 // @namespace    http://tampermonkey.net/
-// @version      4.1.0
+// @version      4.2.0
 // @description  Transcribir audios de WhatsApp Web con Groq Whisper API. UI moderna 2026, rate limiter, cola serial.
 // @author       Antigravity
 // @match        https://web.whatsapp.com/*

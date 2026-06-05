@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const saveBtn = document.getElementById('saveBtn');
   const privacyPolicyLink = document.getElementById('privacyPolicyLink');
 
-  // URL pública de la Política de Privacidad (actualizar con la URL real de GitHub Pages/Gist)
+  // URL pública de la Política de Privacidad — reemplazar con la URL real del repo en GitHub
+  // Ej: 'https://github.com/TU-USUARIO/whatsapp-groq-transcriber/blob/main/PRIVACY_POLICY.md'
   const PRIVACY_POLICY_URL = 'https://github.com/tu-usuario/whatsapp-groq-transcriber/blob/main/PRIVACY_POLICY.md';
 
   let cachedSettings = null;

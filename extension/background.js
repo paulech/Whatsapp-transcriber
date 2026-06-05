@@ -239,7 +239,8 @@ async function transcribeWithGroq(audioData, durationSeconds, whisperModel) {
     const fd = new FormData();
     fd.append('file', blob, 'audio.ogg');
     fd.append('model', whisperModel || DEFAULT_MODEL);
-    fd.append('language', 'es');
+    // Sin parámetro 'language': Whisper auto-detecta el idioma (comportamiento correcto
+    // y consistente con la descripción pública de la extensión)
     fd.append('response_format', 'json');
 
     const headers = {

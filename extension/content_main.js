@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    const VERSION = "4.1.0";
+    const VERSION = "4.2.0";
     const DEFAULT_MODEL = "whisper-large-v3";
     const win = window;
     const SIDEBAR_SELECTOR = '#side, .side, [data-testid="side-panel"], [role="navigation"], [data-testid="chat-list"], [data-testid="navigation-menu"], [data-testid="left-pane"], [data-testid="search-results"], aside';
